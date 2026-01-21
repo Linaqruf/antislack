@@ -2,6 +2,8 @@
 
 Block distracting sites. Solve math to bypass. Build better habits.
 
+<img width="2559" height="1394" alt="image" src="https://github.com/user-attachments/assets/0eebc2e7-e0c1-459d-8ffe-ac889aca7b7c" />
+
 ## What it does
 
 You add sites to block. When you try to visit them, you get redirected to a challenge page. Solve the math problem to get 15 minutes of access. The friction is the point.
@@ -28,8 +30,8 @@ Coming soon.
 ### Manual Install
 
 ```bash
-git clone https://github.com/Linaqruf/antislack-dev.git
-cd antislack-dev
+git clone https://github.com/Linaqruf/antislack.git
+cd antislack
 npm install
 npm run build
 ```
