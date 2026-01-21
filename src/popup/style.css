@@ -1,0 +1,278 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   BRUTALIST TECH - Popup Styles
+   ============================================ */
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0D0D0D;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #444;
+}
+
+/* Scanline Effect */
+.scanline {
+  position: fixed;
+  top: -100px;
+  left: 0;
+  right: 0;
+  height: 100px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(191, 255, 0, 0.02),
+    transparent
+  );
+  animation: scan 8s linear infinite;
+  pointer-events: none;
+  z-index: 100;
+}
+
+@keyframes scan {
+  from { top: -100px; }
+  to { top: 100%; }
+}
+
+/* ============================================
+   SCORE RING (Small)
+   ============================================ */
+
+.score-ring-sm-container {
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+}
+
+.score-ring-sm {
+  width: 100%;
+  height: 100%;
+}
+
+.score-ring-bg-sm {
+  fill: none;
+  stroke: #333;
+  stroke-width: 6;
+}
+
+.score-ring-fill-sm {
+  fill: none;
+  stroke: #BFFF00;
+  stroke-width: 6;
+  stroke-dasharray: 201;
+  stroke-dashoffset: 201;
+  transform: rotate(-90deg);
+  transform-origin: center;
+  transition: stroke-dashoffset 0.6s ease;
+}
+
+.score-text-sm {
+  font-size: 18px;
+  font-weight: 700;
+  fill: #BFFF00;
+  font-family: inherit;
+}
+
+/* ============================================
+   NUCLEAR BAR
+   ============================================ */
+
+.nuclear-bar {
+  padding: 8px 16px;
+  background: rgba(255, 51, 51, 0.1);
+  border-bottom: 1px solid rgba(255, 51, 51, 0.3);
+  animation: nuclear-pulse 2s ease-in-out infinite;
+}
+
+@keyframes nuclear-pulse {
+  0%, 100% {
+    background: rgba(255, 51, 51, 0.1);
+  }
+  50% {
+    background: rgba(255, 51, 51, 0.15);
+  }
+}
+
+/* ============================================
+   BYPASS ITEM
+   ============================================ */
+
+.bypass-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 8px;
+  background: rgba(255, 176, 0, 0.05);
+  border: 1px solid rgba(255, 176, 0, 0.2);
+}
+
+/* ============================================
+   TABS (Small)
+   ============================================ */
+
+.tabs-sm {
+  display: flex;
+  gap: 2px;
+}
+
+.tab-sm {
+  flex: 1;
+  padding: 8px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: #666;
+  background: #1A1A1A;
+  border: 1px solid #333;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.tab-sm:hover {
+  color: #999;
+  border-color: #444;
+}
+
+.tab-sm.active {
+  color: #BFFF00;
+  border-color: #BFFF00;
+  background: rgba(191, 255, 0, 0.05);
+}
+
+/* ============================================
+   STAT CARD (Small)
+   ============================================ */
+
+.stat-card-sm {
+  background: #141414;
+  border: 1px solid #333;
+  padding: 12px;
+  text-align: center;
+}
+
+/* ============================================
+   INPUT (Small)
+   ============================================ */
+
+.input-sm {
+  padding: 8px 12px;
+  background: #1A1A1A;
+  border: 1px solid #333;
+  color: #FFF;
+  font-family: inherit;
+  font-size: 12px;
+  transition: border-color 0.15s ease;
+}
+
+.input-sm::placeholder {
+  color: #666;
+}
+
+.input-sm:hover {
+  border-color: #444;
+}
+
+.input-sm:focus {
+  outline: none;
+  border-color: #BFFF00;
+}
+
+/* ============================================
+   BUTTON (Small)
+   ============================================ */
+
+.btn-sm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  background: #BFFF00;
+  color: #0D0D0D;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-sm:hover {
+  background: #FFF;
+  box-shadow: 0 0 12px rgba(191, 255, 0, 0.4);
+}
+
+.btn-sm:active {
+  transform: translateY(1px);
+}
+
+/* ============================================
+   COLORS
+   ============================================ */
+
+.text-danger {
+  color: #FF3333;
+}
+
+.text-warning {
+  color: #FFB000;
+}
+
+.text-success {
+  color: #00FF66;
+}
+
+.bg-danger {
+  background-color: #FF3333;
+}
+
+/* Tabular numbers */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ============================================
+   DISABLED STATE
+   ============================================ */
+
+body.disabled #status-dot {
+  background-color: #666 !important;
+  animation: none !important;
+}
+
+body.disabled #status-text {
+  color: #666 !important;
+}
+
+body.disabled #status-subtitle {
+  color: #444 !important;
+}
+
+/* ============================================
+   FOCUS STATES
+   ============================================ */
+
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid #BFFF00;
+  outline-offset: 2px;
+}
+
+/* ============================================
+   REDUCED MOTION
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

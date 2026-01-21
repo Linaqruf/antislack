@@ -1,0 +1,260 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   BRUTALIST TECH - Redirect/Block Page Styles
+   ============================================ */
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0D0D0D;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #444;
+}
+
+/* Scanline Effect */
+.scanline {
+  position: fixed;
+  top: -100px;
+  left: 0;
+  right: 0;
+  height: 100px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(191, 255, 0, 0.015),
+    transparent
+  );
+  animation: scan 8s linear infinite;
+  pointer-events: none;
+  z-index: 100;
+}
+
+/* Badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border: 1px solid;
+}
+
+.badge-danger {
+  color: #FF3333;
+  border-color: #FF3333;
+  background: rgba(255, 51, 51, 0.1);
+}
+
+.badge-warning {
+  color: #FFB000;
+  border-color: #FFB000;
+  background: rgba(255, 176, 0, 0.1);
+}
+
+.badge-success {
+  color: #00FF66;
+  border-color: #00FF66;
+  background: rgba(0, 255, 102, 0.1);
+}
+
+/* Buttons */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px 24px;
+  background: #BFFF00;
+  color: #0D0D0D;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-primary:hover {
+  background: #FFFFFF;
+  box-shadow: 0 0 20px rgba(191, 255, 0, 0.4);
+}
+
+.btn-primary:active {
+  transform: translateY(1px);
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px 24px;
+  background: transparent;
+  color: #999;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border: 1px solid #333;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-ghost:hover {
+  color: #FFF;
+  border-color: #666;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* Input */
+.input {
+  width: 100%;
+  padding: 16px;
+  background: #1A1A1A;
+  border: 1px solid #333;
+  color: #FFF;
+  font-family: inherit;
+  font-size: inherit;
+  transition: border-color 0.15s ease;
+}
+
+.input::placeholder {
+  color: #666;
+}
+
+.input:hover {
+  border-color: #666;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #BFFF00;
+  box-shadow: 0 0 0 1px #BFFF00;
+}
+
+/* Remove number input spinners */
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+/* Tabular numbers */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Shake animation for wrong answers */
+.animate-shake {
+  animation: shake 0.4s ease-in-out;
+}
+
+/* Hidden utility */
+.hidden {
+  display: none !important;
+}
+
+/* Focus States */
+button:focus-visible,
+input:focus-visible,
+a:focus-visible {
+  outline: 2px solid #BFFF00;
+  outline-offset: 2px;
+}
+
+/* ============================================
+   NUCLEAR MODE WARNING BAR
+   ============================================ */
+
+.nuclear-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255, 51, 51, 0.1);
+  border-bottom: 1px solid #FF3333;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 50;
+  animation: nuclear-pulse 2s ease-in-out infinite;
+}
+
+.nuclear-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #FF3333;
+  color: #FF3333;
+}
+
+.nuclear-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  padding: 0 24px;
+}
+
+.nuclear-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: #FF3333;
+  letter-spacing: 0.1em;
+}
+
+.nuclear-message {
+  font-size: 12px;
+  color: #999;
+  letter-spacing: 0.05em;
+}
+
+.nuclear-countdown {
+  font-size: 24px;
+  font-weight: 700;
+  color: #FF3333;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.05em;
+}
+
+@keyframes nuclear-pulse {
+  0%, 100% {
+    border-color: #FF3333;
+    box-shadow: none;
+  }
+  50% {
+    border-color: #FF6666;
+    box-shadow: 0 0 20px rgba(255, 51, 51, 0.3);
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

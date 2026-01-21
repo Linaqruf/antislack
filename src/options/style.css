@@ -1,0 +1,908 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   BRUTALIST TECH - Options Page Styles
+   ============================================ */
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0D0D0D;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #444;
+}
+
+/* Scanline Effect */
+.scanline {
+  position: fixed;
+  top: -100px;
+  left: 0;
+  right: 0;
+  height: 100px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(191, 255, 0, 0.015),
+    transparent
+  );
+  animation: scan 8s linear infinite;
+  pointer-events: none;
+  z-index: 100;
+}
+
+/* ============================================
+   TABS
+   ============================================ */
+
+.tabs {
+  display: flex;
+  gap: 2px;
+  border-bottom: 1px solid #333;
+}
+
+.tab-btn {
+  padding: 12px 24px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: #666;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.tab-btn:hover {
+  color: #999;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.tab-btn.active {
+  color: #BFFF00;
+  border-bottom-color: #BFFF00;
+}
+
+/* ============================================
+   PANELS
+   ============================================ */
+
+.panel {
+  background: #141414;
+  border: 1px solid #333;
+}
+
+.panel-header {
+  padding: 12px 16px;
+  border-bottom: 1px solid #333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.panel-title {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  color: #666;
+}
+
+.panel-body {
+  padding: 16px;
+}
+
+/* ============================================
+   STAT CARDS
+   ============================================ */
+
+.stat-card {
+  background: #141414;
+  border: 1px solid #333;
+  padding: 24px;
+  text-align: center;
+}
+
+.stat-value {
+  display: block;
+  font-size: 40px;
+  font-weight: 700;
+  color: #FFF;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.stat-label {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  color: #666;
+  margin-top: 8px;
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: #BFFF00;
+  color: #0D0D0D;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-primary:hover {
+  background: #FFF;
+  box-shadow: 0 0 20px rgba(191, 255, 0, 0.4);
+}
+
+.btn-primary:active {
+  transform: translateY(1px);
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: transparent;
+  color: #999;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  border: 1px solid #333;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-ghost:hover {
+  color: #FFF;
+  border-color: #666;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.btn-danger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: transparent;
+  color: #FF3333;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  border: 1px solid #FF3333;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-danger:hover {
+  background: #FF3333;
+  color: #0D0D0D;
+}
+
+/* ============================================
+   FORM CONTROLS
+   ============================================ */
+
+.input {
+  width: 100%;
+  padding: 12px 16px;
+  background: #1A1A1A;
+  border: 1px solid #333;
+  color: #FFF;
+  font-family: inherit;
+  font-size: 14px;
+  transition: border-color 0.15s ease;
+}
+
+.input::placeholder {
+  color: #666;
+}
+
+.input:hover {
+  border-color: #666;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #BFFF00;
+  box-shadow: 0 0 0 1px #BFFF00;
+}
+
+/* Toggle */
+.toggle {
+  width: 48px;
+  height: 24px;
+  background: #1A1A1A;
+  border: 1px solid #333;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.toggle-dot {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  background: #666;
+  transition: all 0.2s ease;
+}
+
+.toggle.enabled {
+  border-color: #BFFF00;
+  background: rgba(191, 255, 0, 0.1);
+}
+
+.toggle.enabled .toggle-dot {
+  left: 27px;
+  background: #BFFF00;
+  box-shadow: 0 0 8px rgba(191, 255, 0, 0.4);
+}
+
+/* Slider */
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 4px;
+  background: #333;
+  cursor: pointer;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  background: #BFFF00;
+  cursor: grab;
+}
+
+.slider::-webkit-slider-thumb:active {
+  cursor: grabbing;
+  box-shadow: 0 0 12px rgba(191, 255, 0, 0.4);
+}
+
+.slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background: #BFFF00;
+  border: none;
+  cursor: grab;
+}
+
+/* ============================================
+   TARGET CARD (Blocklist Item)
+   ============================================ */
+
+.target-card {
+  position: relative;
+  padding: 16px;
+  background: #141414;
+  border: 1px solid #333;
+  transition: border-color 0.15s ease;
+}
+
+.target-card:hover {
+  border-color: #BFFF00;
+}
+
+.target-domain {
+  font-size: 14px;
+  font-weight: 500;
+  color: #FFF;
+}
+
+.target-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  background: rgba(255, 176, 0, 0.1);
+  color: #FFB000;
+  font-size: 10px;
+  border: 1px solid rgba(255, 176, 0, 0.3);
+  margin-top: 8px;
+}
+
+.target-card-actions {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  gap: 4px;
+}
+
+.delete-btn,
+.edit-btn {
+  padding: 6px;
+  color: #666;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.delete-btn:hover {
+  color: #FF3333;
+  background: rgba(255, 51, 51, 0.1);
+}
+
+.edit-btn:hover {
+  color: #BFFF00;
+  background: rgba(191, 255, 0, 0.1);
+}
+
+/* ============================================
+   STATUS DOT
+   ============================================ */
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+}
+
+.status-dot.online {
+  background: #00FF66;
+  box-shadow: 0 0 8px rgba(0, 255, 102, 0.5);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.status-dot.offline {
+  background: #666;
+}
+
+/* ============================================
+   BAR CHART
+   ============================================ */
+
+.bar-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 0;
+}
+
+.bar-label {
+  width: 40px;
+  font-size: 12px;
+  color: #666;
+}
+
+.bar-track {
+  flex: 1;
+  height: 20px;
+  background: #1A1A1A;
+  border: 1px solid #333;
+}
+
+.bar-fill {
+  height: 100%;
+  background: linear-gradient(to right, #8FB300, #BFFF00);
+  transition: width 0.5s ease;
+}
+
+.bar-value {
+  width: 32px;
+  text-align: right;
+  font-size: 12px;
+  color: #999;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ============================================
+   TOP SITES LIST
+   ============================================ */
+
+.top-site-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #333;
+}
+
+.top-site-item:last-child {
+  border-bottom: none;
+}
+
+.top-site-rank {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1A1A1A;
+  border: 1px solid #333;
+  font-size: 12px;
+  font-weight: 700;
+  color: #666;
+}
+
+/* ============================================
+   MODAL
+   ============================================ */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(2px);
+}
+
+.modal {
+  background: #141414;
+  border: 1px solid #333;
+  padding: 24px;
+  max-width: 400px;
+  width: 100%;
+  margin: 16px;
+}
+
+/* ============================================
+   TOAST
+   ============================================ */
+
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: #141414;
+  border: 1px solid #333;
+  border-left: 3px solid #BFFF00;
+  padding: 16px 20px;
+  z-index: 1001;
+  animation: fade-up 0.2s ease;
+}
+
+.toast.error {
+  border-left-color: #FF3333;
+}
+
+/* ============================================
+   UTILITIES
+   ============================================ */
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ============================================
+   FOCUS STATES
+   ============================================ */
+
+button:focus-visible,
+input:focus-visible,
+a:focus-visible,
+.toggle:focus-visible {
+  outline: 2px solid #BFFF00;
+  outline-offset: 2px;
+}
+
+/* ============================================
+   DIFFICULTY SELECTOR
+   ============================================ */
+
+.difficulty-selector {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.difficulty-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: #1A1A1A;
+  border: 1px solid #333;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.difficulty-btn:hover {
+  border-color: #666;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.difficulty-btn.active {
+  border-color: #BFFF00;
+  background: rgba(191, 255, 0, 0.05);
+}
+
+.difficulty-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #999;
+  margin-bottom: 8px;
+}
+
+.difficulty-btn.active .difficulty-label {
+  color: #BFFF00;
+}
+
+.difficulty-preview {
+  font-size: 11px;
+  color: #666;
+  font-family: monospace;
+}
+
+.difficulty-btn.active .difficulty-preview {
+  color: #999;
+}
+
+/* ============================================
+   MODE SELECTOR (Site Edit Modal)
+   ============================================ */
+
+.mode-btn {
+  padding: 12px;
+  background: #1A1A1A;
+  border: 1px solid #333;
+  color: #999;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.mode-btn:hover {
+  border-color: #666;
+  color: #FFF;
+}
+
+.mode-btn.active {
+  border-color: #BFFF00;
+  background: rgba(191, 255, 0, 0.05);
+  color: #BFFF00;
+}
+
+/* ============================================
+   BADGES
+   ============================================ */
+
+.badge-warning {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  background: rgba(255, 176, 0, 0.15);
+  color: #FFB000;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  border: 1px solid rgba(255, 176, 0, 0.3);
+}
+
+/* ============================================
+   LOCK STATUS
+   ============================================ */
+
+.lock-status {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  padding: 4px 8px;
+  border: 1px solid;
+}
+
+.lock-status.unlocked {
+  color: #666;
+  border-color: #333;
+  background: transparent;
+}
+
+.lock-status.locked {
+  color: #BFFF00;
+  border-color: #BFFF00;
+  background: rgba(191, 255, 0, 0.1);
+}
+
+/* ============================================
+   SHAKE ANIMATION
+   ============================================ */
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-4px); }
+  20%, 40%, 60%, 80% { transform: translateX(4px); }
+}
+
+.animate-shake {
+  animation: shake 0.5s ease-in-out;
+}
+
+/* ============================================
+   NUCLEAR MODE
+   ============================================ */
+
+/* Duration Selector */
+.duration-selector {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.duration-btn {
+  padding: 12px;
+  background: #1A1A1A;
+  border: 1px solid #333;
+  color: #999;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.duration-btn:hover {
+  border-color: #FF3333;
+  color: #FF3333;
+}
+
+.duration-btn.active {
+  border-color: #FF3333;
+  background: rgba(255, 51, 51, 0.1);
+  color: #FF3333;
+}
+
+/* Nuclear Button */
+.btn-nuclear {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: #FF3333;
+  color: #0D0D0D;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-nuclear:hover {
+  background: #FF6666;
+  box-shadow: 0 0 20px rgba(255, 51, 51, 0.4);
+}
+
+.btn-nuclear:active {
+  transform: translateY(1px);
+}
+
+/* Nuclear Status Badge */
+.nuclear-status {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  padding: 4px 8px;
+  border: 1px solid;
+}
+
+.nuclear-status.inactive {
+  color: #666;
+  border-color: #333;
+}
+
+.nuclear-status.active {
+  color: #FF3333;
+  border-color: #FF3333;
+  background: rgba(255, 51, 51, 0.1);
+  animation: nuclear-pulse 2s ease-in-out infinite;
+}
+
+/* Nuclear Countdown Display */
+.nuclear-countdown-large {
+  font-size: 48px;
+  font-weight: 700;
+  color: #FF3333;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+  letter-spacing: 0.05em;
+}
+
+.nuclear-active-display {
+  padding: 24px;
+  background: rgba(255, 51, 51, 0.05);
+  border: 1px solid rgba(255, 51, 51, 0.2);
+  text-align: center;
+}
+
+@keyframes nuclear-pulse {
+  0%, 100% {
+    border-color: #FF3333;
+    box-shadow: none;
+  }
+  50% {
+    border-color: #FF6666;
+    box-shadow: 0 0 20px rgba(255, 51, 51, 0.3);
+  }
+}
+
+/* ============================================
+   PRODUCTIVITY SCORE
+   ============================================ */
+
+.score-ring-container {
+  width: 120px;
+  height: 120px;
+  flex-shrink: 0;
+}
+
+.score-ring {
+  width: 100%;
+  height: 100%;
+}
+
+.score-ring-bg {
+  fill: none;
+  stroke: #333;
+  stroke-width: 8;
+}
+
+.score-ring-fill {
+  fill: none;
+  stroke: #BFFF00;
+  stroke-width: 8;
+  stroke-dasharray: 314;
+  stroke-dashoffset: 314;
+  transform: rotate(-90deg);
+  transform-origin: center;
+  transition: stroke-dashoffset 0.6s ease;
+}
+
+.score-text {
+  font-size: 28px;
+  font-weight: 700;
+  fill: #BFFF00;
+  font-family: inherit;
+}
+
+.score-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.breakdown-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+}
+
+.breakdown-row span:first-child {
+  color: #666;
+}
+
+.breakdown-row span:last-child {
+  color: #BFFF00;
+  font-weight: 600;
+}
+
+/* ============================================
+   HEAT MAP
+   ============================================ */
+
+.heat-map {
+  display: grid;
+  grid-template-columns: 40px repeat(24, 1fr);
+  gap: 2px;
+}
+
+.heat-map-label {
+  font-size: 10px;
+  color: #666;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 8px;
+}
+
+.heat-map-hour-label {
+  font-size: 9px;
+  color: #444;
+  text-align: center;
+}
+
+.heat-map-cell {
+  aspect-ratio: 1;
+  background: #1A1A1A;
+  border: 1px solid #252525;
+  cursor: default;
+  transition: transform 0.1s ease;
+}
+
+.heat-map-cell:hover {
+  transform: scale(1.2);
+  z-index: 1;
+}
+
+.heat-map-cell[data-intensity="1"] {
+  background: rgba(191, 255, 0, 0.15);
+}
+
+.heat-map-cell[data-intensity="2"] {
+  background: rgba(191, 255, 0, 0.3);
+}
+
+.heat-map-cell[data-intensity="3"] {
+  background: rgba(191, 255, 0, 0.5);
+}
+
+.heat-map-cell[data-intensity="4"] {
+  background: rgba(191, 255, 0, 0.7);
+}
+
+.heat-map-cell[data-intensity="5"] {
+  background: #BFFF00;
+}
+
+
+/* ============================================
+   SCORE TREND
+   ============================================ */
+
+.trend-up {
+  color: #00FF66;
+}
+
+.trend-down {
+  color: #FF3333;
+}
+
+.trend-neutral {
+  color: #666;
+}
+
+/* ============================================
+   TEXT COLORS
+   ============================================ */
+
+.text-accent {
+  color: #BFFF00;
+}
+
+/* ============================================
+   REDUCED MOTION
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AntiSlack Settings</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body class="min-h-screen bg-bg-primary text-fg-primary font-mono">
+    <!-- Scanline Effect -->
+    <div class="scanline"></div>
+
+    <div class="relative max-w-4xl mx-auto p-8">
+      <!-- Header -->
+      <header class="mb-8 flex items-center justify-between">
+        <div class="flex items-center gap-4">
+          <div class="w-10 h-10 border border-accent flex items-center justify-center">
+            <span class="text-accent font-bold text-lg">A</span>
+          </div>
+          <div>
+            <h1 class="text-xl font-bold tracking-widest text-fg-primary">ANTISLACK</h1>
+            <p class="text-xs text-fg-muted tracking-widest">SETTINGS</p>
+          </div>
+        </div>
+        <div class="text-xs text-fg-muted tracking-wider">v1.0.0</div>
+      </header>
+
+      <!-- Tab Navigation -->
+      <nav class="tabs mb-8">
+        <button class="tab-btn active" data-tab="blocklist">TARGETS</button>
+        <button class="tab-btn" data-tab="settings">CONFIG</button>
+        <button class="tab-btn" data-tab="stats">STATS</button>
+      </nav>
+
+      <!-- Tab Content -->
+      <main>
+        <!-- Blocklist Tab -->
+        <section id="tab-blocklist" class="tab-content">
+          <!-- Add Site Form -->
+          <div class="panel mb-6">
+            <div class="panel-header">
+              <span class="panel-title">ADD TARGET</span>
+            </div>
+            <div class="panel-body">
+              <div class="flex gap-3">
+                <input
+                  type="text"
+                  id="add-site-input"
+                  class="input flex-1"
+                  placeholder="domain.com"
+                />
+                <button id="add-site-btn" class="btn-primary">
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                  </svg>
+                  ADD
+                </button>
+              </div>
+              <p id="add-site-error" class="text-danger text-sm mt-2 hidden"></p>
+            </div>
+          </div>
+
+          <!-- Blocklist Grid -->
+          <div id="blocklist-container" class="grid grid-cols-2 gap-3 mb-8">
+            <!-- Target cards rendered here -->
+          </div>
+
+          <!-- Empty State -->
+          <div id="blocklist-empty" class="hidden">
+            <div class="panel">
+              <div class="panel-body text-center py-16">
+                <div class="w-16 h-16 mx-auto mb-6 border border-border flex items-center justify-center">
+                  <svg class="w-8 h-8 text-fg-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                  </svg>
+                </div>
+                <h3 class="text-lg font-bold text-fg-secondary mb-2">NO TARGETS</h3>
+                <p class="text-xs text-fg-muted tracking-wide">Add a site to start blocking</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Import/Export -->
+          <div class="flex gap-3 pt-6 border-t border-border">
+            <button id="import-btn" class="btn-ghost">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+              </svg>
+              IMPORT
+            </button>
+            <button id="export-btn" class="btn-ghost">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              </svg>
+              EXPORT
+            </button>
+            <input type="file" id="import-file-input" accept=".json" class="hidden" />
+          </div>
+        </section>
+
+        <!-- Settings Tab -->
+        <section id="tab-settings" class="tab-content hidden">
+          <div class="grid grid-cols-2 gap-4">
+            <!-- Master Toggle -->
+            <div class="panel">
+              <div class="panel-header">
+                <span class="panel-title">STATUS</span>
+                <div id="status-light" class="status-dot online"></div>
+              </div>
+              <div class="panel-body">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <h3 class="font-bold text-fg-primary">Blocking Active</h3>
+                    <p class="text-xs text-fg-muted mt-1">Global on/off</p>
+                  </div>
+                  <button id="enabled-toggle" class="toggle active" aria-label="Toggle extension">
+                    <span class="toggle-dot"></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bypass Toggle -->
+            <div class="panel">
+              <div class="panel-header">
+                <span class="panel-title">BYPASS</span>
+              </div>
+              <div class="panel-body">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <h3 class="font-bold text-fg-primary">Allow Bypass</h3>
+                    <p class="text-xs text-fg-muted mt-1">Math challenge access</p>
+                  </div>
+                  <button id="show-bypass-toggle" class="toggle active" aria-label="Toggle bypass">
+                    <span class="toggle-dot"></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Redirect URL -->
+            <div class="panel col-span-2">
+              <div class="panel-header">
+                <span class="panel-title">REDIRECT URL</span>
+              </div>
+              <div class="panel-body">
+                <p class="text-xs text-fg-muted mb-4">Where to go when blocked</p>
+                <input
+                  type="url"
+                  id="redirect-url-input"
+                  class="input"
+                  placeholder="https://notion.so"
+                />
+              </div>
+            </div>
+
+            <!-- Bypass Duration -->
+            <div class="panel col-span-2">
+              <div class="panel-header">
+                <span class="panel-title">BYPASS DURATION</span>
+              </div>
+              <div class="panel-body">
+                <p class="text-xs text-fg-muted mb-4">Access time after bypass</p>
+                <div class="flex items-center gap-6">
+                  <input
+                    type="range"
+                    id="bypass-duration-slider"
+                    min="5"
+                    max="60"
+                    step="5"
+                    value="15"
+                    class="slider flex-1"
+                  />
+                  <div class="flex items-baseline gap-1">
+                    <span id="bypass-duration-value" class="text-3xl font-bold text-accent tabular-nums">15</span>
+                    <span class="text-sm text-fg-muted">MIN</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Math Difficulty -->
+            <div class="panel col-span-2">
+              <div class="panel-header">
+                <span class="panel-title">MATH DIFFICULTY</span>
+              </div>
+              <div class="panel-body">
+                <p class="text-xs text-fg-muted mb-4">Challenge level for bypass</p>
+                <div class="difficulty-selector">
+                  <button class="difficulty-btn" data-difficulty="easy">
+                    <span class="difficulty-label">EASY</span>
+                    <span class="difficulty-preview">15 + 23 = ?</span>
+                  </button>
+                  <button class="difficulty-btn active" data-difficulty="medium">
+                    <span class="difficulty-label">MEDIUM</span>
+                    <span class="difficulty-preview">47 × 8 = ?</span>
+                  </button>
+                  <button class="difficulty-btn" data-difficulty="hard">
+                    <span class="difficulty-label">HARD</span>
+                    <span class="difficulty-preview">(12 × 5) + 28 = ?</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Auto-Redirect -->
+            <div class="panel">
+              <div class="panel-header">
+                <span class="panel-title">AUTO-REDIRECT</span>
+                <span id="auto-redirect-badge" class="badge-warning hidden">NO BYPASS</span>
+              </div>
+              <div class="panel-body">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <h3 class="font-bold text-fg-primary">Skip Block Page</h3>
+                    <p class="text-xs text-fg-muted mt-1">Direct redirect, no bypass</p>
+                  </div>
+                  <button id="auto-redirect-toggle" class="toggle" aria-label="Toggle auto-redirect">
+                    <span class="toggle-dot"></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Disable Lock -->
+            <div class="panel">
+              <div class="panel-header">
+                <span class="panel-title">DISABLE LOCK</span>
+                <span id="lock-status" class="lock-status unlocked">UNLOCKED</span>
+              </div>
+              <div class="panel-body">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <h3 class="font-bold text-fg-primary">Passphrase Protection</h3>
+                    <p class="text-xs text-fg-muted mt-1">Require passphrase to disable</p>
+                  </div>
+                  <button id="passphrase-toggle" class="toggle" aria-label="Toggle passphrase protection">
+                    <span class="toggle-dot"></span>
+                  </button>
+                </div>
+                <button id="change-passphrase-btn" class="btn-ghost mt-4 hidden">
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 0 1 3 3m3 0a6 6 0 0 1-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1 1 21.75 8.25Z" />
+                  </svg>
+                  CHANGE PASSPHRASE
+                </button>
+              </div>
+            </div>
+
+            <!-- Nuclear Mode -->
+            <div class="panel col-span-2">
+              <div class="panel-header">
+                <span class="panel-title">NUCLEAR MODE</span>
+                <span id="nuclear-status" class="nuclear-status inactive">INACTIVE</span>
+              </div>
+              <div class="panel-body">
+                <!-- Inactive State -->
+                <div id="nuclear-setup" class="space-y-4">
+                  <p class="text-xs text-fg-muted">Complete lockdown with no bypass option</p>
+
+                  <!-- Duration Selector -->
+                  <div class="duration-selector">
+                    <button class="duration-btn active" data-hours="1">1H</button>
+                    <button class="duration-btn" data-hours="4">4H</button>
+                    <button class="duration-btn" data-hours="8">8H</button>
+                    <button class="duration-btn" data-hours="24">24H</button>
+                  </div>
+
+                  <button id="nuclear-engage-btn" class="btn-nuclear w-full">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+                    </svg>
+                    ENGAGE NUCLEAR MODE
+                  </button>
+                </div>
+
+                <!-- Active State -->
+                <div id="nuclear-active" class="hidden">
+                  <div class="nuclear-active-display">
+                    <div class="nuclear-countdown-large">
+                      <span id="options-nuclear-hours">00</span>:<span id="options-nuclear-minutes">00</span>:<span id="options-nuclear-seconds">00</span>
+                    </div>
+                    <p class="text-xs text-fg-muted mt-2">Time remaining</p>
+                  </div>
+                  <button id="nuclear-abort-btn" class="btn-danger w-full mt-4">
+                    EMERGENCY ABORT
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Data Management -->
+            <div class="panel col-span-2">
+              <div class="panel-header">
+                <span class="panel-title">DATA</span>
+              </div>
+              <div class="panel-body">
+                <p class="text-xs text-fg-muted mb-4">Backup and restore</p>
+                <div class="flex gap-3">
+                  <button id="export-all-btn" class="btn-ghost">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                    </svg>
+                    EXPORT ALL
+                  </button>
+                  <button id="import-all-btn" class="btn-ghost">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                    </svg>
+                    IMPORT ALL
+                  </button>
+                  <input type="file" id="import-all-file-input" accept=".json" class="hidden" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Stats Tab -->
+        <section id="tab-stats" class="tab-content hidden">
+          <!-- Summary Cards -->
+          <div class="grid grid-cols-4 gap-4 mb-8">
+            <div class="stat-card">
+              <span id="total-blocks" class="stat-value">0</span>
+              <span class="stat-label">BLOCKED</span>
+            </div>
+            <div class="stat-card">
+              <span id="total-bypasses" class="stat-value text-warning">0</span>
+              <span class="stat-label">BYPASSES</span>
+            </div>
+            <div class="stat-card">
+              <span id="current-streak" class="stat-value text-success">0</span>
+              <span class="stat-label">STREAK</span>
+            </div>
+            <div class="stat-card">
+              <span id="best-streak" class="stat-value text-accent">0</span>
+              <span class="stat-label">BEST</span>
+            </div>
+          </div>
+
+          <!-- Productivity Score -->
+          <div class="panel mb-6">
+            <div class="panel-header">
+              <span class="panel-title">PRODUCTIVITY SCORE</span>
+              <span id="score-trend" class="text-xs"></span>
+            </div>
+            <div class="panel-body flex items-center gap-8">
+              <div class="score-ring-container">
+                <svg class="score-ring" viewBox="0 0 120 120">
+                  <circle class="score-ring-bg" cx="60" cy="60" r="50" />
+                  <circle id="score-ring-fill" class="score-ring-fill" cx="60" cy="60" r="50" />
+                  <text id="score-value" class="score-text" x="60" y="68" text-anchor="middle">0</text>
+                </svg>
+              </div>
+              <div class="score-breakdown flex-1">
+                <div class="breakdown-row"><span>BLOCKS TODAY</span><span id="score-blocks">+0</span></div>
+                <div class="breakdown-row"><span>NO BYPASS</span><span id="score-nobypass">+0</span></div>
+                <div class="breakdown-row"><span>STREAK BONUS</span><span id="score-streak">+0</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Activity Heat Map -->
+          <div class="panel mb-6">
+            <div class="panel-header">
+              <span class="panel-title">ACTIVITY MAP</span>
+              <span class="text-xs text-fg-muted">Last 7 days</span>
+            </div>
+            <div class="panel-body">
+              <div id="heat-map" class="heat-map"></div>
+            </div>
+          </div>
+
+
+          <!-- 7-Day Trend -->
+          <div class="panel mb-8">
+            <div class="panel-header">
+              <span class="panel-title">7-DAY ACTIVITY</span>
+            </div>
+            <div class="panel-body">
+              <div id="trend-chart" class="space-y-2">
+                <!-- Bar chart rendered here -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Top Sites -->
+          <div class="panel mb-8">
+            <div class="panel-header">
+              <span class="panel-title">TOP BLOCKED</span>
+            </div>
+            <div class="panel-body">
+              <div id="top-sites-list">
+                <!-- List rendered here -->
+              </div>
+              <div id="top-sites-empty" class="hidden text-center py-8">
+                <p class="text-xs text-fg-muted">No data</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stats Actions -->
+          <div class="flex gap-3 pt-6 border-t border-border">
+            <button id="export-stats-btn" class="btn-ghost">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              </svg>
+              EXPORT STATS
+            </button>
+            <button id="reset-stats-btn" class="btn-danger">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+              </svg>
+              RESET
+            </button>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirm-modal" class="modal-overlay hidden">
+      <div class="modal">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 border border-danger flex items-center justify-center">
+            <svg class="w-5 h-5 text-danger" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+            </svg>
+          </div>
+          <h3 id="confirm-title" class="text-lg font-bold text-fg-primary">Confirm</h3>
+        </div>
+        <p id="confirm-message" class="text-fg-secondary mb-6 text-sm">Are you sure?</p>
+        <div class="flex gap-3 justify-end">
+          <button id="confirm-cancel-btn" class="btn-ghost">CANCEL</button>
+          <button id="confirm-action-btn" class="btn-danger">CONFIRM</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Passphrase Setup Modal -->
+    <div id="passphrase-setup-modal" class="modal-overlay hidden">
+      <div class="modal">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 border border-accent flex items-center justify-center">
+            <svg class="w-5 h-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold text-fg-primary">Set Passphrase</h3>
+        </div>
+        <p class="text-fg-secondary mb-4 text-sm">Create a passphrase to lock the disable function.</p>
+        <div class="space-y-4">
+          <div>
+            <label class="block text-xs text-fg-muted mb-2 tracking-wider">PASSPHRASE</label>
+            <input
+              type="password"
+              id="passphrase-input"
+              class="input"
+              placeholder="Enter passphrase (min 6 chars)"
+              autocomplete="new-password"
+            />
+          </div>
+          <div>
+            <label class="block text-xs text-fg-muted mb-2 tracking-wider">CONFIRM</label>
+            <input
+              type="password"
+              id="passphrase-confirm-input"
+              class="input"
+              placeholder="Confirm passphrase"
+              autocomplete="new-password"
+            />
+          </div>
+          <p id="passphrase-setup-error" class="text-danger text-sm hidden"></p>
+        </div>
+        <div class="flex gap-3 justify-end mt-6">
+          <button id="passphrase-setup-cancel-btn" class="btn-ghost">CANCEL</button>
+          <button id="passphrase-setup-confirm-btn" class="btn-primary">SET PASSPHRASE</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Passphrase Challenge Modal -->
+    <div id="passphrase-challenge-modal" class="modal-overlay hidden">
+      <div class="modal">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 border border-warning flex items-center justify-center">
+            <svg class="w-5 h-5 text-warning" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+            </svg>
+          </div>
+          <h3 id="passphrase-challenge-title" class="text-lg font-bold text-fg-primary">Enter Passphrase</h3>
+        </div>
+        <p id="passphrase-challenge-message" class="text-fg-secondary mb-4 text-sm">Enter your passphrase to continue.</p>
+        <div class="space-y-4">
+          <input
+            type="password"
+            id="passphrase-challenge-input"
+            class="input"
+            placeholder="Enter passphrase"
+            autocomplete="current-password"
+          />
+          <p id="passphrase-challenge-error" class="text-danger text-sm hidden"></p>
+        </div>
+        <div class="flex gap-3 justify-end mt-6">
+          <button id="passphrase-challenge-cancel-btn" class="btn-ghost">CANCEL</button>
+          <button id="passphrase-challenge-confirm-btn" class="btn-primary">VERIFY</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nuclear Mode Setup Modal -->
+    <div id="nuclear-setup-modal" class="modal-overlay hidden">
+      <div class="modal">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 border border-danger flex items-center justify-center">
+            <svg class="w-5 h-5 text-danger" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold text-fg-primary">Engage Nuclear Mode</h3>
+        </div>
+        <p class="text-fg-secondary mb-4 text-sm">
+          Set an emergency passphrase. This is the ONLY way to abort early.
+        </p>
+        <div class="space-y-4">
+          <div>
+            <label class="block text-xs text-fg-muted mb-2 tracking-wider">DURATION</label>
+            <p id="nuclear-duration-display" class="text-2xl font-bold text-danger">1 HOUR</p>
+          </div>
+          <div>
+            <label class="block text-xs text-fg-muted mb-2 tracking-wider">EMERGENCY PASSPHRASE</label>
+            <input type="password" id="nuclear-passphrase-input" class="input"
+                   placeholder="Min 8 characters" autocomplete="new-password" />
+          </div>
+          <div>
+            <label class="block text-xs text-fg-muted mb-2 tracking-wider">CONFIRM</label>
+            <input type="password" id="nuclear-passphrase-confirm" class="input"
+                   placeholder="Confirm passphrase" autocomplete="new-password" />
+          </div>
+          <p id="nuclear-setup-error" class="text-danger text-sm hidden"></p>
+        </div>
+        <div class="flex gap-3 justify-end mt-6">
+          <button id="nuclear-setup-cancel-btn" class="btn-ghost">ABORT</button>
+          <button id="nuclear-setup-confirm-btn" class="btn-nuclear">ENGAGE</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nuclear Mode Abort Modal -->
+    <div id="nuclear-abort-modal" class="modal-overlay hidden">
+      <div class="modal">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 border border-warning flex items-center justify-center">
+            <svg class="w-5 h-5 text-warning" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 0 1 3 3m3 0a6 6 0 0 1-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1 1 21.75 8.25Z" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold text-fg-primary">Emergency Abort</h3>
+        </div>
+        <p class="text-fg-secondary mb-4 text-sm">Enter your emergency passphrase to abort Nuclear Mode.</p>
+        <div class="space-y-4">
+          <input type="password" id="nuclear-abort-passphrase" class="input"
+                 placeholder="Emergency passphrase" autocomplete="current-password" />
+          <p id="nuclear-abort-error" class="text-danger text-sm hidden"></p>
+        </div>
+        <div class="flex gap-3 justify-end mt-6">
+          <button id="nuclear-abort-cancel-btn" class="btn-ghost">CANCEL</button>
+          <button id="nuclear-abort-confirm-btn" class="btn-primary">ABORT NUCLEAR</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Site Edit Modal -->
+    <div id="site-edit-modal" class="modal-overlay hidden">
+      <div class="modal">
+        <h3 class="text-lg font-bold mb-2">EDIT TARGET</h3>
+        <p id="edit-site-domain" class="text-sm text-fg-muted mb-6 font-mono"></p>
+
+        <!-- Custom Redirect URL -->
+        <div class="mb-6">
+          <label class="block text-xs text-fg-muted mb-2 tracking-wider">REDIRECT URL</label>
+          <input type="url" id="edit-redirect-url" class="input" placeholder="Leave empty for global default" />
+          <p class="text-xs text-fg-muted mt-2">Override the global redirect URL for this site</p>
+        </div>
+
+        <!-- Auto-Redirect Mode -->
+        <div class="mb-6">
+          <label class="block text-xs text-fg-muted mb-2 tracking-wider">AUTO-REDIRECT MODE</label>
+          <div class="flex gap-2">
+            <button class="mode-btn flex-1" data-mode="global">GLOBAL</button>
+            <button class="mode-btn flex-1" data-mode="always">ALWAYS</button>
+            <button class="mode-btn flex-1" data-mode="never">NEVER</button>
+          </div>
+          <p id="effective-mode-text" class="text-xs text-fg-muted mt-2"></p>
+        </div>
+
+        <div class="flex gap-3 justify-end">
+          <button id="edit-cancel-btn" class="btn-ghost">CANCEL</button>
+          <button id="edit-save-btn" class="btn-primary">SAVE</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="toast hidden">
+      <div class="flex items-center gap-3">
+        <div class="w-2 h-2 bg-accent animate-pulse"></div>
+        <p id="toast-message" class="text-sm text-fg-primary"></p>
+      </div>
+    </div>
+
+    <script type="module" src="./index.ts"></script>
+  </body>
+</html>

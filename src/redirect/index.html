@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BLOCKED - AntiSlack</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body class="min-h-screen bg-bg-primary text-fg-primary font-mono">
+    <!-- Scanline Effect -->
+    <div class="scanline"></div>
+
+    <!-- Nuclear Mode Warning -->
+    <section id="nuclear-warning" class="hidden">
+      <div class="nuclear-bar">
+        <div class="nuclear-icon">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+          </svg>
+        </div>
+        <div class="nuclear-text">
+          <span class="nuclear-label">NUCLEAR MODE ACTIVE</span>
+          <span class="nuclear-message">No bypasses permitted</span>
+        </div>
+        <div class="nuclear-countdown">
+          <span id="nuclear-hours">00</span>:<span id="nuclear-minutes">00</span>:<span id="nuclear-seconds">00</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="min-h-screen flex flex-col items-center justify-center p-8 relative">
+      <!-- Main Block Content -->
+      <div id="main-content" class="text-center max-w-lg animate-fade-up">
+        <!-- Status Badge -->
+        <div class="badge badge-danger mb-8">
+          <div class="w-2 h-2 bg-danger animate-pulse"></div>
+          <span>BLOCKED</span>
+        </div>
+
+        <!-- Blocked Domain -->
+        <div class="mb-10">
+          <p class="text-xs text-fg-muted tracking-widest uppercase mb-3">TARGET</p>
+          <div class="relative inline-block">
+            <h1 id="blocked-domain" class="text-3xl font-bold text-fg-primary tracking-tight">
+              loading...
+            </h1>
+            <div class="absolute inset-0 flex items-center pointer-events-none">
+              <div class="w-full h-[2px] bg-danger"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quote -->
+        <div class="mb-10 p-6 border border-border bg-bg-secondary">
+          <p id="motivational-quote" class="text-lg text-accent">
+            "Stay focused."
+          </p>
+          <p id="quote-author" class="text-xs text-fg-muted mt-2">— System</p>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="space-y-3">
+          <button id="productive-btn" class="btn-primary w-full">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+            <span>GO BACK</span>
+          </button>
+
+          <button id="bypass-btn" class="btn-ghost w-full">
+            REQUEST BYPASS
+          </button>
+        </div>
+
+        <!-- Stats -->
+        <div class="mt-10 pt-6 border-t border-border flex items-center justify-center gap-8">
+          <div class="text-center">
+            <div class="text-xs text-fg-muted tracking-widest uppercase mb-1">BLOCKED</div>
+            <div class="text-lg font-bold text-accent tabular-nums"><span id="block-count">0</span>x</div>
+          </div>
+          <div class="w-px h-8 bg-border"></div>
+          <div class="text-center">
+            <div class="text-xs text-fg-muted tracking-widest uppercase mb-1">STREAK</div>
+            <div id="streak-display" class="text-lg font-bold text-success tabular-nums">0d</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Math Challenge Section -->
+      <div id="math-section" class="hidden text-center max-w-lg animate-fade-up">
+        <!-- Challenge Badge -->
+        <div class="badge badge-warning mb-8">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+          <span>BYPASS CHALLENGE</span>
+        </div>
+
+        <!-- Instructions -->
+        <div class="mb-8">
+          <p class="text-fg-secondary mb-2">
+            Solve to access <span id="math-domain" class="text-fg-primary font-bold"></span>
+          </p>
+          <p class="text-xs text-fg-muted">
+            Duration: <span id="bypass-duration" class="text-accent">15</span> min
+          </p>
+        </div>
+
+        <!-- Math Question -->
+        <div class="mb-8 p-8 border border-border bg-bg-secondary">
+          <div id="math-question" class="text-4xl font-bold text-fg-primary tracking-wider tabular-nums">
+            47 + 83 = ?
+          </div>
+        </div>
+
+        <!-- Answer Input -->
+        <div class="mb-6">
+          <input
+            type="number"
+            id="math-answer"
+            class="input text-center text-2xl"
+            placeholder="ANSWER"
+            autocomplete="off"
+          />
+        </div>
+
+        <!-- Error Message -->
+        <div id="math-error" class="hidden mb-4 p-3 border border-danger bg-danger/10">
+          <p class="text-danger text-sm">INCORRECT. NEW CHALLENGE.</p>
+        </div>
+
+        <!-- Success Message -->
+        <div id="math-success" class="hidden mb-4 p-3 border border-success bg-success/10">
+          <div class="flex items-center justify-center gap-2 text-success">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+            <span class="text-sm font-bold">GRANTED — REDIRECTING...</span>
+          </div>
+        </div>
+
+        <!-- Challenge Buttons -->
+        <div class="space-y-3">
+          <button id="submit-answer-btn" class="btn-primary w-full">
+            VERIFY
+          </button>
+
+          <button id="cancel-bypass-btn" class="btn-ghost w-full text-fg-muted">
+            CANCEL
+          </button>
+        </div>
+      </div>
+
+      <!-- Settings Link -->
+      <div class="absolute bottom-8">
+        <a
+          href="#"
+          id="settings-link"
+          class="flex items-center gap-2 text-fg-muted hover:text-accent text-xs tracking-widest uppercase transition-colors duration-150"
+        >
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 0 1 1.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.559.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.894.149c-.424.07-.764.383-.929.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 0 1-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.398.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 0 1-.12-1.45l.527-.737c.25-.35.272-.806.108-1.204-.165-.397-.506-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.108-1.204l-.526-.738a1.125 1.125 0 0 1 .12-1.45l.773-.773a1.125 1.125 0 0 1 1.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894Z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+          </svg>
+          SETTINGS
+        </a>
+      </div>
+    </div>
+
+    <script type="module" src="./index.ts"></script>
+  </body>
+</html>

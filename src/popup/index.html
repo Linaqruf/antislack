@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AntiSlack</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body class="w-[360px] h-[480px] bg-bg-primary text-fg-primary font-mono overflow-hidden">
+    <!-- Scanline Effect -->
+    <div class="scanline"></div>
+
+    <div class="relative flex flex-col h-full">
+      <!-- Header -->
+      <header class="flex items-center justify-between px-4 py-3 border-b border-border">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 border border-accent flex items-center justify-center">
+            <span class="text-accent font-bold text-sm">A</span>
+          </div>
+          <span class="text-sm font-bold tracking-widest text-fg-primary">ANTISLACK</span>
+        </div>
+        <button
+          id="settings-btn"
+          class="p-2 text-fg-muted hover:text-accent transition-colors duration-150"
+          aria-label="Open settings"
+        >
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 0 1 1.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.559.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.894.149c-.424.07-.764.383-.929.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 0 1-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.398.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 0 1-.12-1.45l.527-.737c.25-.35.272-.806.108-1.204-.165-.397-.506-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.108-1.204l-.526-.738a1.125 1.125 0 0 1 .12-1.45l.773-.773a1.125 1.125 0 0 1 1.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894Z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+          </svg>
+        </button>
+      </header>
+
+      <!-- Main Content - Scrollable -->
+      <main class="flex-1 overflow-y-auto">
+        <!-- Score Ring + Status -->
+        <div class="px-4 py-4 flex items-center gap-4 border-b border-border">
+          <div class="score-ring-sm-container">
+            <svg class="score-ring-sm" viewBox="0 0 80 80">
+              <circle class="score-ring-bg-sm" cx="40" cy="40" r="32" />
+              <circle id="popup-score-ring-fill" class="score-ring-fill-sm" cx="40" cy="40" r="32" />
+              <text id="popup-score-value" class="score-text-sm" x="40" y="46" text-anchor="middle">0</text>
+            </svg>
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center gap-2 mb-1">
+              <div id="status-dot" class="w-2 h-2 bg-accent animate-pulse"></div>
+              <span id="status-text" class="text-lg font-bold tracking-tight text-accent">ACTIVE</span>
+              <span id="score-trend" class="text-xs text-fg-muted"></span>
+            </div>
+            <p id="status-subtitle" class="text-xs text-fg-muted tracking-wide">
+              <span id="sites-blocked" class="text-accent font-bold">0</span> targets monitored
+            </p>
+          </div>
+        </div>
+
+        <!-- Nuclear Mode Bar (if active) -->
+        <div id="nuclear-bar" class="nuclear-bar hidden">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-danger" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+              </svg>
+              <span class="text-xs font-bold tracking-wider text-danger">NUCLEAR MODE</span>
+            </div>
+            <span id="nuclear-countdown" class="text-sm font-bold text-danger tabular-nums">00:00:00</span>
+          </div>
+        </div>
+
+        <!-- Active Bypasses (if any) -->
+        <div id="bypasses-container" class="hidden border-b border-border">
+          <div class="px-4 py-2 bg-bg-secondary">
+            <span class="text-xs text-fg-muted tracking-wider">ACTIVE BYPASSES</span>
+          </div>
+          <div id="bypasses-list" class="px-4 py-2 space-y-2">
+            <!-- Bypass items rendered here -->
+          </div>
+        </div>
+
+        <!-- Quick Add -->
+        <div class="px-4 py-3 border-b border-border">
+          <div class="flex gap-2">
+            <input
+              type="text"
+              id="quick-add-input"
+              class="input-sm flex-1"
+              placeholder="Block domain.com"
+            />
+            <button id="quick-add-btn" class="btn-sm">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+              </svg>
+            </button>
+          </div>
+          <p id="quick-add-error" class="text-xs text-danger mt-1 hidden"></p>
+        </div>
+
+        <!-- Stats Tabs -->
+        <div class="px-4 pt-3 pb-2">
+          <div class="tabs-sm">
+            <button class="tab-sm active" data-period="today">TODAY</button>
+            <button class="tab-sm" data-period="week">WEEK</button>
+            <button class="tab-sm" data-period="all">ALL</button>
+          </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="px-4 pb-4 grid grid-cols-2 gap-2">
+          <div class="stat-card-sm">
+            <div id="stat-blocks" class="text-xl font-bold text-fg-primary tabular-nums">0</div>
+            <div class="text-xs text-fg-muted tracking-wide">BLOCKED</div>
+          </div>
+          <div class="stat-card-sm">
+            <div id="stat-redirects" class="text-xl font-bold text-accent tabular-nums">0</div>
+            <div class="text-xs text-fg-muted tracking-wide">REDIRECTS</div>
+          </div>
+          <div class="stat-card-sm">
+            <div id="stat-bypasses" class="text-xl font-bold text-warning tabular-nums">0</div>
+            <div class="text-xs text-fg-muted tracking-wide">BYPASSES</div>
+          </div>
+          <div class="stat-card-sm">
+            <div id="stat-streak" class="text-xl font-bold text-success tabular-nums">0</div>
+            <div class="text-xs text-fg-muted tracking-wide">STREAK</div>
+          </div>
+        </div>
+      </main>
+
+      <!-- Footer -->
+      <footer class="px-4 py-3 border-t border-border bg-bg-secondary">
+        <button
+          id="open-settings-btn"
+          class="w-full py-2 flex items-center justify-center gap-2 text-fg-muted hover:text-accent text-xs tracking-widest uppercase transition-colors duration-150"
+        >
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />
+          </svg>
+          COMMAND CENTER
+        </button>
+      </footer>
+    </div>
+
+    <script type="module" src="./index.ts"></script>
+  </body>
+</html>
