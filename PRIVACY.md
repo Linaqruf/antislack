@@ -49,7 +49,7 @@ You can:
 
 ## Contact
 
-For privacy questions, open an issue at: https://github.com/Linaqruf/antislack-dev/issues
+For privacy questions, open an issue at: https://github.com/Linaqruf/antislack/issues
 
 ---
 
