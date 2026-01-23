@@ -25,7 +25,7 @@ You add sites to block. When you try to visit them, you get redirected to a chal
 
 ### Chrome Web Store
 
-Coming soon.
+Coming soon™
 
 ### Manual Install
 
